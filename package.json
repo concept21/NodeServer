@@ -1,10 +1,10 @@
 {
-  "name": "cynoclaimNodeServer",
-  "version": "0.1.0",
-  "description": "",
+  "name": "node-example",
+  "version": "1.0.0",
+  "description": "This example is so cool.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start":  "node index.js"
   },
   "dependencies": {
     "express": "4.x",
