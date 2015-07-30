@@ -4,7 +4,9 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var chat = io.of('/chat')
 
-server.listen(3000, function(){
+var port = process.env.PORT || 3000;
+
+server.listen(port, function(){
   console.log('App listening at http://localhost:3000/');
 });
 
