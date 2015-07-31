@@ -16,9 +16,14 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
+var users = []
+
 //Chat socket
 chat.on('connection', function (socket) {
     console.log('user connected to chat');
+
+    users.push(socket.id)
+    chat.emit('get users', users)
 
     socket.on('send msg', function(data){
       console.log('msg received')
@@ -26,6 +31,11 @@ chat.on('connection', function (socket) {
     })
 
     socket.on('disconnect', function(){
+
+      var UserIndex = users.indexOf(socket.id)
+      users.splice(UserIndex, 1)
+      chat.emit('get users', users)
+
       console.log('user disconnected from chat');
     })
 });
@@ -34,9 +44,6 @@ io.on('connection', function(socket){
 
   var socketId = socket.id
   console.log('Socket ' + socketId +' connected')
-
-  //send notification to all clients
-  socket.emit('new', socketId)
 
   socket.on('disconnect', function(){
     console.log('Socket ' + socket.id +' disconnected')
